@@ -46,6 +46,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    #タイトル画面
     - assets/images/prapor.jpg
     - assets/images/therapist.jpg
     - assets/images/fence.jpg
@@ -54,6 +55,8 @@ flutter:
     - assets/images/mechanic.jpg
     - assets/images/ragman.jpg
     - assets/images/jaeger.jpg
+    - assets/images/kappa_container.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

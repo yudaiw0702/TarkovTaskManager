@@ -137,14 +137,13 @@ class TaskListPage extends StatelessWidget {
           ),
 
           Card(
-            //InkWellでリップルエフェクトをかける
             child: InkWell(
               onTap: () => debugPrint("Card tapped"),
               child: Padding(
                 padding: EdgeInsets.all(1.0),
                 child: ListTile(
-                  leading: Image.asset('assets/images/prapor.jpg', width: 50),
-                  title: Text('Prapor'),
+                  leading: Image.asset('assets/images/kappa_container.png', width: 50),
+                  title: Text('Kappaまでに必要なアイテム'),
                 ),
               ),
             ),
