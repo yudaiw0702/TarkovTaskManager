@@ -30,14 +30,54 @@ class TaskListPage extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          Text('Prapor'),
-          Text('Therapist'),
-          Text('Fence'),
-          Text('Skier'),
-          Text('Peacekeeper'),
-          Text('Mechanic'),
-          Text('Ragman'),
-          Text('Jaeger'),
+          // CardとListTileを使い、簡単に整ったUIを作成
+          Card(
+            child: ListTile(
+              title: Text('Prapor'),
+            ),
+          ),
+
+          Card(
+            child: ListTile(
+              title: Text('Therapist'),
+            ),
+          ),
+
+          Card(
+            child: ListTile(
+              title: Text('Fence'),
+            ),
+          ),
+
+          Card(
+            child: ListTile(
+              title: Text('Skier'),
+            ),
+          ),
+
+          Card(
+            child: ListTile(
+              title: Text('Peacekeeper'),
+            ),
+          ),
+
+          Card(
+            child: ListTile(
+              title: Text('Mechanic'),
+            ),
+          ),
+
+          Card(
+            child: ListTile(
+              title: Text('Ragman'),
+            ),
+          ),
+
+          Card(
+            child: ListTile(
+              title: Text('Jaeger'),
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
