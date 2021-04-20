@@ -31,119 +31,66 @@ class TaskListPage extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           // CardとListTileを使い、簡単に整ったUIを作成
-          Card(
-            //InkWellでリップルエフェクトをかける
-            child: InkWell(
-              onTap: () => debugPrint("Card tapped"),
-              child: Padding(
-                padding: EdgeInsets.all(1.0),
-                child: ListTile(
-                  leading: Image.asset('assets/images/prapor.jpg', width: 50),
-                  title: Text('Prapor'),
-                ),
-              ),
-            ),
+
+          Row(
+            children: [
+              Text('タスク進捗：0%'),
+              Text('獲得アイテム数：0/100'),
+            ],
+          ),
+
+          TraderCard(
+            image: 'prapor',
+            text: 'Prapor',
+          ),
+
+          TraderCard(
+            image: 'therapist',
+            text: 'Therapist',
+          ),
+
+          TraderCard(
+            image: 'fence',
+            text: 'Fence',
+          ),
+
+          TraderCard(
+            image: 'skier',
+            text: 'Skier',
+          ),
+
+          TraderCard(
+            image: 'peacekeeper',
+            text: 'Peacekeeper',
+          ),
+
+          TraderCard(
+            image: 'mechanic',
+            text: 'Mechanic',
+          ),
+
+          TraderCard(
+            image: 'ragman',
+            text: 'Ragman',
+          ),
+
+          TraderCard(
+            image: 'jaeger',
+            text: 'Jaeger',
           ),
 
           Card(
             child: InkWell(
-              onTap: () => debugPrint("Card tapped"),
-              child: Padding(
-                padding: EdgeInsets.all(1.0),
-                child: ListTile(
-                  leading: Image.asset('assets/images/therapist.jpg', width: 50),
-                  title: Text('Therapist'),
-                ),
-              ),
-            ),
-          ),
-
-          Card(
-            child: InkWell(
-              onTap: () => debugPrint("Card tapped"),
-              child: Padding(
-                padding: EdgeInsets.all(1.0),
-                child: ListTile(
-                  leading: Image.asset('assets/images/fence.jpg', width: 50),
-                  title: Text('Fence'),
-                ),
-              ),
-            ),
-          ),
-
-          Card(
-            child: InkWell(
-              onTap: () => debugPrint("Card tapped"),
-              child: Padding(
-                padding: EdgeInsets.all(1.0),
-                child: ListTile(
-                  leading: Image.asset('assets/images/skier.jpg', width: 50),
-                  title: Text('Skier'),
-                ),
-              ),
-            ),
-          ),
-
-          Card(
-            child: InkWell(
-              onTap: () => debugPrint("Card tapped"),
-              child: Padding(
-                padding: EdgeInsets.all(1.0),
-                child: ListTile(
-                  leading: Image.asset('assets/images/peacekeeper.jpg', width: 50),
-                  title: Text('Peacekeeper'),
-                ),
-              ),
-            ),
-          ),
-
-          Card(
-            child: InkWell(
-              onTap: () => debugPrint("Card tapped"),
-              child: Padding(
-                padding: EdgeInsets.all(1.0),
-                child: ListTile(
-                  leading: Image.asset('assets/images/mechanic.jpg', width: 50),
-                  title: Text('Mechanic'),
-                ),
-              ),
-            ),
-          ),
-
-          Card(
-            child: InkWell(
-              onTap: () => debugPrint("Card tapped"),
-              child: Padding(
-                padding: EdgeInsets.all(1.0),
-                child: ListTile(
-                  leading: Image.asset('assets/images/ragman.jpg', width: 50),
-                  title: Text('Ragman'),
-                ),
-              ),
-            ),
-          ),
-
-          Card(
-            child: InkWell(
-              onTap: () => debugPrint("Card tapped"),
-              child: Padding(
-                padding: EdgeInsets.all(1.0),
-                child: ListTile(
-                  leading: Image.asset('assets/images/jaeger.jpg', width: 50),
-                  title: Text('Jaeger'),
-                ),
-              ),
-            ),
-          ),
-
-          Card(
-            child: InkWell(
-              onTap: () => debugPrint("Card tapped"),
+              onTap: (){
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ItemPage(),),
+                );
+              },
               child: Padding(
                 padding: EdgeInsets.all(1.0),
                 child: ListTile(
                   leading: Image.asset('assets/images/kappa_container.png', width: 50),
-                  title: Text('Kappaまでに必要なアイテム'),
+                  title: Text('Kappa取得までに必要なアイテム'),
                 ),
               ),
             ),
@@ -167,6 +114,65 @@ class TaskListPage extends StatelessWidget {
     );
   }
 }
+
+//トレーダーカード
+class TraderCard extends StatelessWidget {
+  final String text;
+  final String image;
+  const TraderCard({
+    Key key,
+    this.text,
+    this.image,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: InkWell(
+
+        //タップされたときの動作
+        onTap: (){
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => Mypage(),),
+          );
+        },
+        child: Padding(
+          padding: EdgeInsets.all(1.0),
+          child: ListTile(
+            leading: Image.asset('assets/images/$image.jpg', width: 50),
+            title: Text(text),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+//画面遷移
+class Mypage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('TraderName')),
+      body: Center(
+        child: Text('遷移しました'),
+      ),
+    );
+  }
+}
+
+class ItemPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('アイテムチェックリスト')),
+      body: Center(
+        child: Text('遷移しました'),
+      ),
+    );
+  }
+}
+
 
 // リスト追加画面用Widget
 class TaskAddPage extends StatelessWidget {
