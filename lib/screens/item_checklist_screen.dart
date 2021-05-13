@@ -1,14 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-class CounterModel extends ChangeNotifier {
-  int count = 0;
-
-  void increment() {
-    count = count + 1;
-    notifyListeners();
-  }
-}
+import 'package:tarkov_task_manager/providers/item_provider.dart';
 
 class ItemCheckList extends StatelessWidget {
   @override
@@ -67,8 +59,9 @@ class _Post extends StatelessWidget {
   final Color colorNegative;
   final String textNegative;
   final int itemsNeeded;
+  final int itemsGet;
 
-  const _Post({
+  _Post({
     Key key,
     @required this.name,
     @required this.message,
@@ -80,6 +73,7 @@ class _Post extends StatelessWidget {
     @required this.textNegative,
     @required this.image,
     @required this.itemsNeeded,
+    @required this.itemsGet,
   }) : super(key: key);
 
   @override
@@ -151,8 +145,12 @@ class _Post extends StatelessWidget {
                       style: TextButton.styleFrom(
                         primary: colorNegative,
                       ),
-                      // ignore: unnecessary_statements
-                      onPressed: getItem.increment,
+                      /// 取得ボタンを押したときの動作
+                      onPressed: (){
+                        if (itemsGet < itemsNeeded) {
+                          getItem.increment();
+                        }
+                      },
                       child: Text(textNegative),
                     ),
                   ),
@@ -180,6 +178,7 @@ class _Post extends StatelessWidget {
 class _FlashDrive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return _Post(
       name: 'FlashDrive',
       message: 'アイテム説明とか',
@@ -191,6 +190,7 @@ class _FlashDrive extends StatelessWidget {
       textNegative: '取得',
       image: 'Secure_Flash_drive_Icon.png',
       itemsNeeded: 5,
+      itemsGet: 0,
     );
   }
 }
@@ -199,8 +199,8 @@ class _GasAnalyzer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _Post(
-      name: 'Namaga Tema',
-      message: 'Not recomended for publication.',
+      name: 'GasAnalyzer',
+      message: 'セラピストに必要なアイテム',
       textReason: 'Pending Reason',
       colorPrimary: Colors.deepOrangeAccent,
       colorPositive: Colors.blueAccent,
@@ -208,6 +208,21 @@ class _GasAnalyzer extends StatelessWidget {
       colorNegative: Colors.deepOrangeAccent,
       textNegative: 'Decline',
       image: 'Gas_Analyzer_Icon.png',
+      itemsNeeded: 3,
+      itemsGet: 0,
+    );
+  }
+}
+
+class btn extends StatelessWidget {
+  const btn({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+        style: TextButton.styleFrom(
+        ),
+        onPressed: () {},
     );
   }
 }
