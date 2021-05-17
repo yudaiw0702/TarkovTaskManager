@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tarkov_task_manager/providers/item_provider.dart';
 
+import '../db_helper.dart';
+
 class ItemCheckList extends StatelessWidget {
+  // database_helper.dartのDataBaseHelperをインスタンス化
+  final dbHelper = DatabaseHelper.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,13 +16,91 @@ class ItemCheckList extends StatelessWidget {
       ),
       body: ChangeNotifierProvider<CounterModel>(
         create: (context) => CounterModel(),
-        child: Row(
-          children: <Widget>[
-            Expanded(child: ItemList())
-          ]
-        ),
+        child: Column(children: <Widget>[
+          Row(
+            children: [
+              TextButton(
+                child: Text(
+                  'insert',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onPressed: () {
+                  _insert();
+                },
+              ),
+              TextButton(
+                child: Text(
+                  'query',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onPressed: () {
+                  _query();
+                },
+              ),
+              TextButton(
+                child: Text(
+                  'update',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onPressed: () {
+                  _update();
+                },
+              ),
+              TextButton(
+                child: Text(
+                  'delete',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onPressed: () {
+                  _delete();
+                },
+              ),
+            ],
+          ),
+          Expanded(child: ItemList())
+        ]),
       ),
     );
+  }
+
+  // ボタンが押されたときのメソッド類
+
+// insertが押されたときのメソッド
+  void _insert() async {
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnName: 'FlashDrive',
+      DatabaseHelper.columnItemGet: 0,
+      DatabaseHelper.columnMessage: 'Find in raid',
+      DatabaseHelper.columnImage: 'Secure_Flash_drive_Icon.png',
+      DatabaseHelper.columnItemNeeded: 5,
+      DatabaseHelper.columnDone: false,
+    };
+    final id = await dbHelper.insert(row);
+    print('inserted row id: $id');
+  }
+
+// queryが押されたときのメソッド
+  void _query() async {
+    final allRows = await dbHelper.queryAllRows();
+    print('query all rows:');
+    allRows.forEach((row) => print(row));
+  }
+
+// updateが押された時のメソッド
+  void _update() async {
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnId: 1,
+      DatabaseHelper.columnItemGet: 1,
+    };
+    final rowsAffected = await dbHelper.update(row);
+    print('updated $rowsAffected row(s)');
+  }
+
+// deleteが押された時のメソッド
+  void _delete() async {
+    final id = await dbHelper.queryRowCount();
+    final rowsDeleted = await dbHelper.delete(id);
+    print('deleted $rowsDeleted row(s): row $id');
   }
 }
 
@@ -60,7 +142,6 @@ class _Post extends StatelessWidget {
   final Color colorNegative;
   final String textNegative;
   final int itemsNeeded;
-  
 
   _Post({
     Key key,
@@ -94,13 +175,13 @@ class _Post extends StatelessWidget {
               leading: Image.asset('assets/images/items/$image'),
               title: Row(
                 children: [
-                  Expanded(child:Text(name)),
+                  Expanded(child: Text(name)),
                   Expanded(
-                      child: Text('${getItem.count}/$itemsNeeded',
-                          style: TextStyle(fontSize: 20),
-                          textAlign: TextAlign.right,
-                      )
-                  ),
+                      child: Text(
+                    '${getItem.count}/$itemsNeeded',
+                    style: TextStyle(fontSize: 20),
+                    textAlign: TextAlign.right,
+                  )),
                 ],
               ),
               subtitle: Text('Find in raid'),
@@ -145,8 +226,9 @@ class _Post extends StatelessWidget {
                       style: TextButton.styleFrom(
                         primary: colorNegative,
                       ),
+
                       /// 取得ボタンを押したときの動作
-                      onPressed: (){
+                      onPressed: () {
                         if (getItem.count < itemsNeeded) {
                           getItem.increment();
                         }
@@ -176,7 +258,6 @@ class _Post extends StatelessWidget {
 }
 
 class _FlashDrive extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return _Post(

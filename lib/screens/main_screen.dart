@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:tarkov_task_manager/models/trader_card_model.dart';
 import 'package:tarkov_task_manager/screens/item_checklist_screen.dart';
 
-import '../main.dart';
-
 class TaskListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       //AppBarの表示とタイトル設定
-      appBar: AppBar(
-          title: Text('タスク一覧')
-      ),
+      appBar: AppBar(title: Text('タスク一覧')),
       body: ListView(
         children: <Widget>[
           // CardとListTileを使い、簡単に整ったUIを作成
@@ -65,21 +61,23 @@ class TaskListPage extends StatelessWidget {
 
           Card(
             child: InkWell(
-              onTap: (){
+              onTap: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => ItemCheckList(),),
+                  MaterialPageRoute(
+                    builder: (context) => ItemCheckList(),
+                  ),
                 );
               },
               child: Padding(
                 padding: EdgeInsets.all(1.0),
                 child: ListTile(
-                  leading: Image.asset('assets/images/kappa_container.png', width: 50),
+                  leading: Image.asset('assets/images/kappa_container.png',
+                      width: 50),
                   title: Text('Kappa取得までに必要なアイテム'),
                 ),
               ),
             ),
           ),
-
         ],
       ),
     );
