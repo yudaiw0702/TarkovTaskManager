@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tarkov_task_manager/providers/item_provider.dart';
 
 class ItemCheckList extends StatelessWidget {
@@ -59,7 +60,7 @@ class _Post extends StatelessWidget {
   final Color colorNegative;
   final String textNegative;
   final int itemsNeeded;
-  final int itemsGet;
+  
 
   _Post({
     Key key,
@@ -73,7 +74,6 @@ class _Post extends StatelessWidget {
     @required this.textNegative,
     @required this.image,
     @required this.itemsNeeded,
-    @required this.itemsGet,
   }) : super(key: key);
 
   @override
@@ -147,7 +147,7 @@ class _Post extends StatelessWidget {
                       ),
                       /// 取得ボタンを押したときの動作
                       onPressed: (){
-                        if (itemsGet < itemsNeeded) {
+                        if (getItem.count < itemsNeeded) {
                           getItem.increment();
                         }
                       },
@@ -176,9 +176,9 @@ class _Post extends StatelessWidget {
 }
 
 class _FlashDrive extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
-
     return _Post(
       name: 'FlashDrive',
       message: 'アイテム説明とか',
@@ -190,7 +190,6 @@ class _FlashDrive extends StatelessWidget {
       textNegative: '取得',
       image: 'Secure_Flash_drive_Icon.png',
       itemsNeeded: 5,
-      itemsGet: 0,
     );
   }
 }
@@ -209,20 +208,6 @@ class _GasAnalyzer extends StatelessWidget {
       textNegative: 'Decline',
       image: 'Gas_Analyzer_Icon.png',
       itemsNeeded: 3,
-      itemsGet: 0,
-    );
-  }
-}
-
-class btn extends StatelessWidget {
-  const btn({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-        style: TextButton.styleFrom(
-        ),
-        onPressed: () {},
     );
   }
 }
