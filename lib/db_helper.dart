@@ -13,7 +13,7 @@ class DatabaseHelper {
   //命名規約に沿って名前つける(https://qiita.com/genzouw/items/35022fa96c120e67c637)
   static final columnId = '_id';
   static final columnName = 'name';
-  static final columnAge = 'age';
+  static final columnGetItem = 'value';
 
   // DatabaseHelperクラスをシングルトンにするためのコンストラクタ
   DatabaseHelper._privateConstructor();
@@ -30,19 +30,22 @@ class DatabaseHelper {
 
   // データベースを開く。データベースがない場合は作る関数
   _initDatabase() async {
-    Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, _databaseName);
+    var databasesPath = await getDatabasesPath();
+    String path = join(databasesPath, _databaseName);
+
+    await deleteDatabase(path);
+
     return await openDatabase(path,
         version: _databaseVersion, onCreate: _onCreate);
   }
 
-  // DBを作成するメソッド
+  // DBを作成するメソッド(アイテム)
   Future _onCreate(Database db, int version) async {
     await db.execute('''
           CREATE TABLE $table (
             $columnId INTEGER PRIMARY KEY,
             $columnName TEXT NOT NULL,
-            $columnAge INTEGER NOT NULL
+            $columnGetItem INTEGER NOT NULL
           )
           ''');
   }

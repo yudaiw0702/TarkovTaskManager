@@ -69,7 +69,7 @@ class ItemCheckList extends StatelessWidget {
   void _insert() async {
     Map<String, dynamic> row = {
       DatabaseHelper.columnName: 'FlashDrive',
-      DatabaseHelper.columnAge: 23
+      DatabaseHelper.columnGetItem: 23
     };
     final id = await dbHelper.insert(row);
     print('inserted row id: $id');
