@@ -69,7 +69,11 @@ class ItemCheckList extends StatelessWidget {
   void _insert() async {
     Map<String, dynamic> row = {
       DatabaseHelper.columnName: 'FlashDrive',
-      DatabaseHelper.columnGetItem: 23
+      DatabaseHelper.columnItemGet: 0,
+      DatabaseHelper.columnMessage: 'Find in raid',
+      DatabaseHelper.columnImage: 'Secure_Flash_drive_Icon.png',
+      DatabaseHelper.columnItemNeeded: 5,
+      DatabaseHelper.columnDone: false,
     };
     final id = await dbHelper.insert(row);
     print('inserted row id: $id');
@@ -86,6 +90,7 @@ class ItemCheckList extends StatelessWidget {
   void _update() async {
     Map<String, dynamic> row = {
       DatabaseHelper.columnId: 1,
+      DatabaseHelper.columnItemGet: 1,
     };
     final rowsAffected = await dbHelper.update(row);
     print('updated $rowsAffected row(s)');

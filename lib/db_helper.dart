@@ -8,12 +8,16 @@ class DatabaseHelper {
   static final _databaseName = "MyDatabase.db";
   static final _databaseVersion = 1;
 
-  static final table = 'my_table';
+  static final table = 'item_table';
 
   //命名規約に沿って名前つける(https://qiita.com/genzouw/items/35022fa96c120e67c637)
   static final columnId = '_id';
   static final columnName = 'name';
-  static final columnGetItem = 'value';
+  static final columnItemGet = 'item_get';
+  static final columnMessage = 'message';
+  static final columnImage = 'image';
+  static final columnItemNeeded = 'item_needed';
+  static final columnDone = 'done';
 
   // DatabaseHelperクラスをシングルトンにするためのコンストラクタ
   DatabaseHelper._privateConstructor();
@@ -45,7 +49,11 @@ class DatabaseHelper {
           CREATE TABLE $table (
             $columnId INTEGER PRIMARY KEY,
             $columnName TEXT NOT NULL,
-            $columnGetItem INTEGER NOT NULL
+            $columnItemGet INTEGER,
+            $columnMessage TEXT,
+            $columnImage TEXT,
+            $columnItemNeeded INTEGER,
+            $columnDone INTEGER
           )
           ''');
   }
