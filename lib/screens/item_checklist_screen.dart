@@ -2,12 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tarkov_task_manager/providers/item_provider.dart';
 
-import '../db_helper.dart';
-
-class ItemCheckList extends StatelessWidget {
-  // database_helper.dartのDataBaseHelperをインスタンス化
-  final dbHelper = DatabaseHelper.instance;
-
+class ItemListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,91 +11,9 @@ class ItemCheckList extends StatelessWidget {
       ),
       body: ChangeNotifierProvider<CounterModel>(
         create: (context) => CounterModel(),
-        child: Column(children: <Widget>[
-          Row(
-            children: [
-              TextButton(
-                child: Text(
-                  'insert',
-                  style: TextStyle(fontSize: 20),
-                ),
-                onPressed: () {
-                  _insert();
-                },
-              ),
-              TextButton(
-                child: Text(
-                  'query',
-                  style: TextStyle(fontSize: 20),
-                ),
-                onPressed: () {
-                  _query();
-                },
-              ),
-              TextButton(
-                child: Text(
-                  'update',
-                  style: TextStyle(fontSize: 20),
-                ),
-                onPressed: () {
-                  _update();
-                },
-              ),
-              TextButton(
-                child: Text(
-                  'delete',
-                  style: TextStyle(fontSize: 20),
-                ),
-                onPressed: () {
-                  _delete();
-                },
-              ),
-            ],
-          ),
-          Expanded(child: ItemList())
-        ]),
+        child: Column(children: <Widget>[Expanded(child: ItemList())]),
       ),
     );
-  }
-
-  // ボタンが押されたときのメソッド類
-
-// insertが押されたときのメソッド
-  void _insert() async {
-    Map<String, dynamic> row = {
-      DatabaseHelper.columnName: 'FlashDrive',
-      DatabaseHelper.columnItemGet: 0,
-      DatabaseHelper.columnMessage: 'Find in raid',
-      DatabaseHelper.columnImage: 'Secure_Flash_drive_Icon.png',
-      DatabaseHelper.columnItemNeeded: 5,
-      DatabaseHelper.columnDone: false,
-    };
-    final id = await dbHelper.insert(row);
-    print('inserted row id: $id');
-  }
-
-// queryが押されたときのメソッド
-  void _query() async {
-    final allRows = await dbHelper.queryAllRows();
-    print('query all rows:');
-    allRows.forEach((row) => print(row));
-  }
-
-// updateが押された時のメソッド
-  void _update() async {
-    Map<String, dynamic> row = {
-      DatabaseHelper.columnId: 1,
-      DatabaseHelper.columnItemGet: 1,
-    };
-    final rowsAffected = await dbHelper.update(row);
-    print('updated $rowsAffected row(s)');
-  }
-
-// deleteが押された時のメソッド
-  void _delete() async {
-    final id = await dbHelper.queryRowCount();
-    final rowsDeleted = await dbHelper.delete(id);
-    print('deleted $rowsDeleted row(s): row $id');
   }
 }
 
@@ -115,52 +28,46 @@ class _ItemListState extends State<ItemList> {
     return Container(
       child: ListView(
         children: [
-          _FlashDrive(),
-          _GasAnalyzer(),
-          _FlashDrive(),
-          _GasAnalyzer(),
-          _FlashDrive(),
-          _GasAnalyzer(),
-          _FlashDrive(),
-          _GasAnalyzer(),
-          _FlashDrive(),
-          _GasAnalyzer(),
+          FlashDrive(),
+          GasAnalyzer(),
+          FlashDrive(),
+          GasAnalyzer(),
+          FlashDrive(),
+          GasAnalyzer(),
+          FlashDrive(),
+          GasAnalyzer(),
+          FlashDrive(),
+          GasAnalyzer(),
+          FlashDrive(),
+          GasAnalyzer(),
         ],
       ),
     );
   }
 }
 
-class _Post extends StatelessWidget {
+class ListTileItem extends StatefulWidget {
   final String name;
   final String message;
-  final String textReason;
   final String image;
-  final Color colorPrimary;
-  final Color colorPositive;
-  final String textPositive;
-  final Color colorNegative;
-  final String textNegative;
   final int itemsNeeded;
 
-  _Post({
+  ListTileItem({
     Key key,
     @required this.name,
     @required this.message,
-    @required this.textReason,
-    @required this.colorPrimary,
-    @required this.colorPositive,
-    @required this.textPositive,
-    @required this.colorNegative,
-    @required this.textNegative,
     @required this.image,
     @required this.itemsNeeded,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final CounterModel getItem = Provider.of<CounterModel>(context);
+  _ListTileItemState createState() => _ListTileItemState();
+}
 
+class _ListTileItemState extends State<ListTileItem> {
+  int _itemCount = 0;
+  @override
+  Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: Card(
@@ -172,13 +79,13 @@ class _Post extends StatelessWidget {
         child: Column(
           children: [
             ListTile(
-              leading: Image.asset('assets/images/items/$image'),
+              leading: Image.asset('assets/images/items/${widget.image}'),
               title: Row(
                 children: [
-                  Expanded(child: Text(name)),
+                  Expanded(child: Text(widget.name)),
                   Expanded(
                       child: Text(
-                    '${getItem.count}/$itemsNeeded',
+                    '$_itemCount/${widget.itemsNeeded}',
                     style: TextStyle(fontSize: 20),
                     textAlign: TextAlign.right,
                   )),
@@ -196,12 +103,12 @@ class _Post extends StatelessWidget {
                     width: 16,
                     height: 16,
                     decoration: BoxDecoration(
-                      border: Border.all(color: colorPrimary, width: 4),
+                      border: Border.all(color: Colors.greenAccent, width: 4),
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
                   SizedBox(width: 8),
-                  Flexible(child: Text(message)),
+                  Flexible(child: Text(widget.message)),
                 ],
               ),
             ),
@@ -212,39 +119,35 @@ class _Post extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       border: Border(
-                        bottom: BorderSide(color: colorPrimary, width: 2),
+                        bottom: BorderSide(color: Colors.greenAccent, width: 2),
                       ),
                     ),
-                    child: Text(
-                      textReason,
-                      style: TextStyle(color: Colors.blueAccent),
-                    ),
+                    // child: Text(
+                    //   widget.textReason,
+                    //   style: TextStyle(color: Colors.blueAccent),
+                    // ),
                   ),
                   SizedBox(width: 24),
                   Expanded(
                     child: TextButton(
                       style: TextButton.styleFrom(
-                        primary: colorNegative,
+                        primary: Colors.deepOrangeAccent,
                       ),
 
                       /// 取得ボタンを押したときの動作
-                      onPressed: () {
-                        if (getItem.count < itemsNeeded) {
-                          getItem.increment();
-                        }
-                      },
-                      child: Text(textNegative),
+                      onPressed: () => setState(() => _itemCount--),
+                      child: Text('減らす'),
                     ),
                   ),
                   SizedBox(width: 8),
                   Expanded(
                     child: TextButton(
                       style: TextButton.styleFrom(
-                        primary: colorPositive,
-                        backgroundColor: colorPositive.withOpacity(0.2),
+                        primary: Colors.greenAccent,
+                        backgroundColor: Colors.greenAccent.withOpacity(0.2),
                       ),
-                      onPressed: () {},
-                      child: Text(textPositive),
+                      onPressed: () => setState(() => _itemCount++),
+                      child: Text('取得'),
                     ),
                   ),
                 ],
@@ -257,36 +160,24 @@ class _Post extends StatelessWidget {
   }
 }
 
-class _FlashDrive extends StatelessWidget {
+class FlashDrive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return _Post(
+    return ListTileItem(
       name: 'FlashDrive',
       message: 'アイテム説明とか',
-      textReason: '',
-      colorPrimary: Colors.greenAccent,
-      colorPositive: Colors.greenAccent,
-      textPositive: 'Passed',
-      colorNegative: Colors.blueAccent,
-      textNegative: '取得',
       image: 'Secure_Flash_drive_Icon.png',
       itemsNeeded: 5,
     );
   }
 }
 
-class _GasAnalyzer extends StatelessWidget {
+class GasAnalyzer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return _Post(
+    return ListTileItem(
       name: 'GasAnalyzer',
       message: 'セラピストに必要なアイテム',
-      textReason: 'Pending Reason',
-      colorPrimary: Colors.deepOrangeAccent,
-      colorPositive: Colors.blueAccent,
-      textPositive: 'Publish',
-      colorNegative: Colors.deepOrangeAccent,
-      textNegative: 'Decline',
       image: 'Gas_Analyzer_Icon.png',
       itemsNeeded: 3,
     );
