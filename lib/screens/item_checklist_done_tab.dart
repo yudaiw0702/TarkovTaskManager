@@ -1,58 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:tarkov_task_manager/screens/item_checklist_done_tab.dart';
 
-class ItemListScreen extends StatefulWidget {
+class ItemListDone extends StatefulWidget {
   @override
-  _ItemListScreenState createState() => _ItemListScreenState();
+  _ItemListDoneState createState() => _ItemListDoneState();
 }
 
-class _ItemListScreenState extends State<ItemListScreen>
-    with SingleTickerProviderStateMixin {
-  TabController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TabController(vsync: this, length: 2);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('アイテムチェックリスト'),
-        bottom: TabBar(controller: _controller, tabs: _buildSimpleTabs()),
-      ),
-      body: TabBarView(
-        controller: _controller,
-        children: _buildTabPages(),
-      ),
-      //Column(children: <Widget>[Expanded(child: ItemList())]),
-    );
-  }
-
-  List<Widget> _buildSimpleTabs() {
-    return [
-      Tab(text: '未完了'),
-      Tab(text: '完了'),
-    ];
-  }
-
-  /// タブの中身として表示するPage(Widget)の配列を生成
-  List<Widget> _buildTabPages() {
-    return [
-      Column(children: <Widget>[Expanded(child: ItemList())]),
-      Column(children: <Widget>[Expanded(child: ItemListDone())]),
-    ];
-  }
-}
-
-class ItemList extends StatefulWidget {
-  @override
-  _ItemListState createState() => _ItemListState();
-}
-
-class _ItemListState extends State<ItemList> {
+class _ItemListDoneState extends State<ItemListDone> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -200,7 +153,7 @@ class FlashDrive extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTileItem(
       name: 'FlashDrive',
-      message: 'アイテム説明とか',
+      message: '完了',
       image: 'Secure_Flash_drive_Icon.png',
       itemsNeeded: 5,
     );
@@ -212,7 +165,7 @@ class GasAnalyzer extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTileItem(
       name: 'GasAnalyzer',
-      message: 'セラピストに必要なアイテム',
+      message: '完了',
       image: 'Gas_Analyzer_Icon.png',
       itemsNeeded: 3,
     );
