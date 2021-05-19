@@ -71,73 +71,8 @@ class _ListTileItemState extends State<ListTileItem> {
               title: Row(
                 children: [
                   Expanded(child: Text(widget.name)),
-                  Expanded(
-                      child: Text(
-                    '$_itemCount/${widget.itemsNeeded}',
-                    style: TextStyle(fontSize: 20),
-                    textAlign: TextAlign.right,
-                  )),
-                ],
-              ),
-              subtitle: Text('Find in raid'),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(width: 72),
-                  Container(
-                    width: 16,
-                    height: 16,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.greenAccent, width: 4),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  SizedBox(width: 8),
-                  Flexible(child: Text(widget.message)),
-                ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(color: Colors.greenAccent, width: 2),
-                      ),
-                    ),
-                    // child: Text(
-                    //   widget.textReason,
-                    //   style: TextStyle(color: Colors.blueAccent),
-                    // ),
-                  ),
-                  SizedBox(width: 24),
-                  Expanded(
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        primary: Colors.deepOrangeAccent,
-                      ),
-
-                      /// 取得ボタンを押したときの動作
-                      onPressed: () => setState(() => _itemCount--),
-                      child: Text('減らす'),
-                    ),
-                  ),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        primary: Colors.greenAccent,
-                        backgroundColor: Colors.greenAccent.withOpacity(0.2),
-                      ),
-                      onPressed: () => setState(() => _itemCount++),
-                      child: Text('取得'),
-                    ),
-                  ),
+                  Expanded(child: Icon(Icons.check)),
+                  Expanded(child: Icon(Icons.close)),
                 ],
               ),
             ),
