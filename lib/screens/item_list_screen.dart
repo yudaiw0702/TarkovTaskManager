@@ -1,103 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:tarkov_task_manager/models/item_model.dart';
-import 'package:tarkov_task_manager/screens/item_checklist_done_tab.dart';
 
 class ItemListScreen extends StatefulWidget {
   @override
   _ItemListScreenState createState() => _ItemListScreenState();
 }
 
-class _ItemListScreenState extends State<ItemListScreen>
-    with SingleTickerProviderStateMixin {
-  TabController _controller;
-
+class _ItemListScreenState extends State<ItemListScreen> {
   @override
   void initState() {
     super.initState();
-    _controller = TabController(vsync: this, length: 2);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('アイテムチェックリスト'),
-        bottom: TabBar(controller: _controller, tabs: _buildSimpleTabs()),
-      ),
-      body: TabBarView(
-        controller: _controller,
-        children: _buildTabPages(),
-      ),
-      //Column(children: <Widget>[Expanded(child: ItemList())]),
-    );
+        appBar: AppBar(
+          title: Text('アイテムチェックリスト'),
+        ),
+        body: Stack(children: [
+          Column(
+            children: [
+              Expanded(
+                  child: ListView.builder(
+                      itemCount: items.length,
+                      itemBuilder: (BuildContext context, int i) {
+                        return buildListItem(items, i);
+                      })),
+            ],
+          ),
+        ]));
   }
 
-  List<Widget> _buildSimpleTabs() {
-    return [
-      Tab(text: '未完了'),
-      Tab(text: '完了'),
-    ];
-  }
-
-  /// タブの中身として表示するPage(Widget)の配列を生成
-  List<Widget> _buildTabPages() {
-    return [
-      Column(children: <Widget>[Expanded(child: ItemList())]),
-      Column(children: <Widget>[Expanded(child: ItemListDone())]),
-    ];
-  }
-}
-
-class ItemList extends StatefulWidget {
-  @override
-  _ItemListState createState() => _ItemListState();
-}
-
-class _ItemListState extends State<ItemList> {
-  @override
-  Widget build(BuildContext context) {
+  buildListItem(List<Item> items, int i) {
     return Container(
-      child: ListView(
-        children: [
-          FlashDrive(),
-          GasAnalyzer(),
-          Salewa(),
-          Morphine(),
-          SparkPlug(),
-          FlashDrive(),
-          GasAnalyzer(),
-          Salewa(),
-          Morphine(),
-          SparkPlug(),
-        ],
-      ),
-    );
-  }
-}
-
-class ListTileItem extends StatefulWidget {
-  final String name;
-  final String message;
-  final String image;
-  final int itemsNeeded;
-
-  ListTileItem({
-    Key key,
-    @required this.name,
-    @required this.message,
-    @required this.image,
-    @required this.itemsNeeded,
-  }) : super(key: key);
-
-  @override
-  _ListTileItemState createState() => _ListTileItemState();
-}
-
-class _ListTileItemState extends State<ListTileItem> {
-  int _itemCount = 0;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
+      key: ObjectKey(items[i]),
       margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: Card(
         elevation: 8,
@@ -109,17 +46,17 @@ class _ListTileItemState extends State<ListTileItem> {
           children: [
             ListTile(
               leading: Image.asset(
-                'assets/images/items/${widget.image}',
+                'assets/images/items/${items[i].image}',
                 width: 50,
                 height: 50,
                 fit: BoxFit.contain,
               ),
               title: Row(
                 children: [
-                  Expanded(child: Text(widget.name)),
+                  Expanded(child: Text(items[i].name)),
                   Expanded(
                       child: Text(
-                    '$_itemCount/${widget.itemsNeeded}',
+                    '${items[i].count}/${items[i].itemsNeeded}',
                     style: TextStyle(fontSize: 20),
                     textAlign: TextAlign.right,
                   )),
@@ -142,7 +79,7 @@ class _ListTileItemState extends State<ListTileItem> {
                     ),
                   ),
                   SizedBox(width: 8),
-                  Flexible(child: Text(widget.message)),
+                  Flexible(child: Text(items[i].message)),
                 ],
               ),
             ),
@@ -170,10 +107,8 @@ class _ListTileItemState extends State<ListTileItem> {
 
                       /// 取得ボタンを押したときの動作
                       onPressed: () {
-                        if (_itemCount > 0) {
-                          setState(() {
-                            return _itemCount--;
-                          });
+                        if (items[i].count > 0) {
+                          setState(() => items[i].count--);
                         }
                       },
                       child: Text('減らす'),
@@ -187,10 +122,8 @@ class _ListTileItemState extends State<ListTileItem> {
                         backgroundColor: Colors.greenAccent.withOpacity(0.2),
                       ),
                       onPressed: () {
-                        if (_itemCount < widget.itemsNeeded) {
-                          setState(() {
-                            return _itemCount++;
-                          });
+                        if (items[i].count < items[i].itemsNeeded) {
+                          setState(() => items[i].count++);
                         }
                       },
                       child: Text('取得'),

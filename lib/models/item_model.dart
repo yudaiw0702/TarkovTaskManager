@@ -1,62 +1,64 @@
 import 'package:flutter/material.dart';
-import 'package:tarkov_task_manager/screens/item_checklist_screen.dart';
+import 'package:tarkov_task_manager/screens/item_list_screen.dart';
 
-class FlashDrive extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListTileItem(
-      name: 'FlashDrive',
-      message: 'アイテム説明とか',
-      image: 'Secure_Flash_drive_Icon.png',
-      itemsNeeded: 5,
-    );
-  }
+class Item {
+  String name;
+  String status;
+  String message;
+  String image;
+  int itemsNeeded;
+  int count;
+
+  Item({
+    Key key,
+    this.name,
+    this.status,
+    this.message,
+    this.image,
+    this.itemsNeeded,
+    this.count,
+  });
 }
 
-class GasAnalyzer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListTileItem(
-      name: 'GasAnalyzer',
-      message: 'セラピストに必要なアイテム',
-      image: 'Gas_Analyzer_Icon.png',
-      itemsNeeded: 3,
-    );
-  }
-}
-
-class Salewa extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListTileItem(
-      name: 'Salewa',
-      message: 'セラピストに必要なアイテム',
-      image: 'Salewa_Icon.png',
-      itemsNeeded: 3,
-    );
-  }
-}
-
-class Morphine extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListTileItem(
-      name: 'Morphine',
-      message: 'セラピストに必要なアイテム',
-      image: 'Morphine_Icon.png',
-      itemsNeeded: 4,
-    );
-  }
-}
-
-class SparkPlug extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListTileItem(
-      name: 'SparkPlug',
-      message: 'セラピストに必要なアイテム',
-      image: 'Spark_Plug_Icon.png',
-      itemsNeeded: 8,
-    );
-  }
-}
+List<Item> items = [
+  Item(
+    name: 'FlashDrive',
+    message: 'アイテム説明とか',
+    image: 'Secure_Flash_drive_Icon.png',
+    status: 'false',
+    itemsNeeded: 5,
+    count: 0,
+  ),
+  Item(
+    name: 'GasAnalyzer',
+    message: 'セラピストに必要なアイテム',
+    image: 'Gas_Analyzer_Icon.png',
+    status: 'false',
+    itemsNeeded: 3,
+    count: 0,
+  ),
+  Item(
+    name: 'Salewa',
+    message: 'セラピストに必要なアイテム',
+    image: 'Salewa_Icon.png',
+    status: 'false',
+    itemsNeeded: 3,
+    count: 0,
+  ),
+  Item(
+    name: 'Morphine',
+    message: 'セラピストに必要なアイテム',
+    image: 'Morphine_Icon.png',
+    status: 'false',
+    itemsNeeded: 4,
+    count: 0,
+  ),
+  Item(
+    name: 'SparkPlug',
+    message: 'セラピストに必要なアイテム',
+    image: 'Spark_Plug_Icon.png',
+    status: 'false',
+    itemsNeeded: 8,
+    count: 0,
+  ),
+];

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tarkov_task_manager/models/trader_card_model.dart';
-import 'package:tarkov_task_manager/screens/item_checklist_screen.dart';
+import 'package:tarkov_task_manager/screens/item_list_screen.dart';
 
 class TaskListPage extends StatelessWidget {
   @override
