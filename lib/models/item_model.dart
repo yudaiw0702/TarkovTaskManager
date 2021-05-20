@@ -24,3 +24,39 @@ class GasAnalyzer extends StatelessWidget {
     );
   }
 }
+
+class Salewa extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListTileItem(
+      name: 'Salewa',
+      message: 'セラピストに必要なアイテム',
+      image: 'Salewa_Icon.png',
+      itemsNeeded: 3,
+    );
+  }
+}
+
+class Morphine extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListTileItem(
+      name: 'Morphine',
+      message: 'セラピストに必要なアイテム',
+      image: 'Morphine_Icon.png',
+      itemsNeeded: 4,
+    );
+  }
+}
+
+class SparkPlug extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListTileItem(
+      name: 'SparkPlug',
+      message: 'セラピストに必要なアイテム',
+      image: 'Spark_Plug_Icon.png',
+      itemsNeeded: 8,
+    );
+  }
+}

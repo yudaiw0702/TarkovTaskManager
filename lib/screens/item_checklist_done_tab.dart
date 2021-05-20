@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tarkov_task_manager/models/item_model.dart';
 
 class ItemListDone extends StatefulWidget {
   @override
@@ -12,18 +11,7 @@ class _ItemListDoneState extends State<ItemListDone> {
     return Container(
       child: ListView(
         children: [
-          FlashDrive(),
-          GasAnalyzer(),
-          FlashDrive(),
-          GasAnalyzer(),
-          FlashDrive(),
-          GasAnalyzer(),
-          FlashDrive(),
-          GasAnalyzer(),
-          FlashDrive(),
-          GasAnalyzer(),
-          FlashDrive(),
-          GasAnalyzer(),
+          FlashDriveDone(),
         ],
       ),
     );
@@ -90,6 +78,18 @@ class _ListTileItemState extends State<ListTileItem> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class FlashDriveDone extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListTileItem(
+      name: 'FlashDrive',
+      message: 'アイテム説明とか',
+      image: 'Secure_Flash_drive_Icon.png',
+      itemsNeeded: 5,
     );
   }
 }

@@ -61,16 +61,14 @@ class _ItemListState extends State<ItemList> {
         children: [
           FlashDrive(),
           GasAnalyzer(),
+          Salewa(),
+          Morphine(),
+          SparkPlug(),
           FlashDrive(),
           GasAnalyzer(),
-          FlashDrive(),
-          GasAnalyzer(),
-          FlashDrive(),
-          GasAnalyzer(),
-          FlashDrive(),
-          GasAnalyzer(),
-          FlashDrive(),
-          GasAnalyzer(),
+          Salewa(),
+          Morphine(),
+          SparkPlug(),
         ],
       ),
     );
@@ -171,7 +169,13 @@ class _ListTileItemState extends State<ListTileItem> {
                       ),
 
                       /// 取得ボタンを押したときの動作
-                      onPressed: () => setState(() => _itemCount--),
+                      onPressed: () {
+                        if (_itemCount > 0) {
+                          setState(() {
+                            return _itemCount--;
+                          });
+                        }
+                      },
                       child: Text('減らす'),
                     ),
                   ),
@@ -183,12 +187,11 @@ class _ListTileItemState extends State<ListTileItem> {
                         backgroundColor: Colors.greenAccent.withOpacity(0.2),
                       ),
                       onPressed: () {
-                        setState(() {
-                          var itemCount = _itemCount;
-                          if (itemCount <= widget.itemsNeeded) {
-                            return itemCount++;
-                          }
-                        });
+                        if (_itemCount < widget.itemsNeeded) {
+                          setState(() {
+                            return _itemCount++;
+                          });
+                        }
                       },
                       child: Text('取得'),
                     ),

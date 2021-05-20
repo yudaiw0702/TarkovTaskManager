@@ -62,3 +62,6 @@ flutter:
     #アイテムアイコン
     - assets/images/items/Secure_Flash_drive_Icon.png
     - assets/images/items/Gas_Analyzer_Icon.png
+    - assets/images/items/Salewa_Icon.png
+    - assets/images/items/Morphine_Icon.png
+    - assets/images/items/Spark_Plug_Icon.png
