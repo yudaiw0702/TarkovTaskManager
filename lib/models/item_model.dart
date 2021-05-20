@@ -1,13 +1,26 @@
-class ItemData {
-  String Name;
-  String Image;
-  int Counter;
-  bool ShouldVisible;
+import 'package:flutter/material.dart';
+import 'package:tarkov_task_manager/screens/item_checklist_screen.dart';
 
-  ItemData({this.Name, this.Image, this.Counter, this.ShouldVisible});
+class FlashDrive extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListTileItem(
+      name: 'FlashDrive',
+      message: 'アイテム説明とか',
+      image: 'Secure_Flash_drive_Icon.png',
+      itemsNeeded: 5,
+    );
+  }
 }
 
-List<ItemData> itemData = [
-  ItemData(Name: 'FlashDrive', Image: 'Gas_Analyzer_Icon.png', Counter: 1, ShouldVisible: false),
-  ItemData(Name: 'Shoes 2', Counter: 1, ShouldVisible: false),
-];
+class GasAnalyzer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListTileItem(
+      name: 'GasAnalyzer',
+      message: 'セラピストに必要なアイテム',
+      image: 'Gas_Analyzer_Icon.png',
+      itemsNeeded: 3,
+    );
+  }
+}
