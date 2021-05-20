@@ -181,7 +181,14 @@ class _ListTileItemState extends State<ListTileItem> {
                         primary: Colors.greenAccent,
                         backgroundColor: Colors.greenAccent.withOpacity(0.2),
                       ),
-                      onPressed: () => setState(() => _itemCount++),
+                      onPressed: () {
+                        setState(() {
+                          var itemCount = _itemCount;
+                          if (itemCount <= widget.itemsNeeded) {
+                            return itemCount++;
+                          }
+                        });
+                      },
                       child: Text('取得'),
                     ),
                   ),

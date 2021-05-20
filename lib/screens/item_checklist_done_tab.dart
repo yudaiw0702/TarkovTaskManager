@@ -71,8 +71,18 @@ class _ListTileItemState extends State<ListTileItem> {
               title: Row(
                 children: [
                   Expanded(child: Text(widget.name)),
-                  Expanded(child: Icon(Icons.check)),
-                  Expanded(child: Icon(Icons.close)),
+                  Expanded(
+                    child: Text(
+                      '$_itemCount/${widget.itemsNeeded}',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  Container(
+                      child: IconButton(
+                    icon: Icon(Icons.close),
+                    color: Colors.red,
+                    onPressed: () {},
+                  )),
                 ],
               ),
             ),
