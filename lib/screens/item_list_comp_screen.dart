@@ -1,95 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:tarkov_task_manager/models/item_model.dart';
 
-class ItemListDone extends StatefulWidget {
-  @override
-  _ItemListDoneState createState() => _ItemListDoneState();
-}
+class CompletedTasks extends StatelessWidget {
+// constructor内で親Widgetからの変数の継承？を行う
+// 注意：　Classを呼び出す際に継承したい変数の代入を忘れない
+  CompletedTasks({Key key, this.items}) : super(key: key);
 
-class _ItemListDoneState extends State<ItemListDone> {
+  final List<Item> items;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView(
-        children: [
-          FlashDriveDone(),
-        ],
-      ),
-    );
-  }
-}
-
-class ListTileItem extends StatefulWidget {
-  final String name;
-  final String message;
-  final String image;
-  final int itemsNeeded;
-
-  ListTileItem({
-    Key key,
-    @required this.name,
-    @required this.message,
-    @required this.image,
-    @required this.itemsNeeded,
-  }) : super(key: key);
-
-  @override
-  _ListTileItemState createState() => _ListTileItemState();
-}
-
-class _ListTileItemState extends State<ListTileItem> {
-  int _itemCount = 0;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      child: Card(
-        elevation: 8,
-        shadowColor: Colors.grey,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("Completed Tasks"),
         ),
-        child: Column(
-          children: [
-            ListTile(
-              leading: Image.asset(
-                'assets/images/items/${widget.image}',
-                width: 50,
-                height: 50,
-                fit: BoxFit.contain,
-              ),
-              title: Row(
-                children: [
-                  Expanded(child: Text(widget.name)),
-                  Expanded(
-                    child: Text(
-                      '$_itemCount/${widget.itemsNeeded}',
-                      style: TextStyle(fontSize: 20),
-                    ),
+        body: Stack(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: items.length,
+                    itemBuilder: (BuildContext context, int i) {
+//Taskオブジェクトのstatusが’true’になっているもの（完了された）Taskのみを表示する
+                      return (items[i].status == 'true')
+                          ? Column(
+                              children: <Widget>[
+                                ListTile(
+                                  title: Text(items[i].name),
+                                  leading: Icon(
+                                    Icons.check_box,
+                                    color: Colors.greenAccent,
+                                  ),
+                                ),
+                                Divider(height: 0)
+                              ],
+                            )
+                          : Container();
+                    },
                   ),
-                  Container(
-                      child: IconButton(
-                    icon: Icon(Icons.close),
-                    color: Colors.red,
-                    onPressed: () {},
-                  )),
-                ],
-              ),
-            ),
+                ),
+              ],
+            )
           ],
         ),
       ),
-    );
-  }
-}
-
-class FlashDriveDone extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListTileItem(
-      name: 'FlashDrive',
-      message: 'アイテム説明とか',
-      image: 'Secure_Flash_drive_Icon.png',
-      itemsNeeded: 5,
     );
   }
 }

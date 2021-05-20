@@ -23,7 +23,7 @@ class Item {
 List<Item> items = [
   Item(
     name: 'FlashDrive',
-    message: 'アイテム説明とか',
+    message: '進行中',
     image: 'Secure_Flash_drive_Icon.png',
     status: 'false',
     itemsNeeded: 5,
@@ -31,7 +31,7 @@ List<Item> items = [
   ),
   Item(
     name: 'GasAnalyzer',
-    message: 'セラピストに必要なアイテム',
+    message: '進行中',
     image: 'Gas_Analyzer_Icon.png',
     status: 'false',
     itemsNeeded: 3,
@@ -39,7 +39,7 @@ List<Item> items = [
   ),
   Item(
     name: 'Salewa',
-    message: 'セラピストに必要なアイテム',
+    message: '進行中',
     image: 'Salewa_Icon.png',
     status: 'false',
     itemsNeeded: 3,
@@ -47,7 +47,7 @@ List<Item> items = [
   ),
   Item(
     name: 'Morphine',
-    message: 'セラピストに必要なアイテム',
+    message: '進行中',
     image: 'Morphine_Icon.png',
     status: 'false',
     itemsNeeded: 4,
@@ -55,7 +55,7 @@ List<Item> items = [
   ),
   Item(
     name: 'SparkPlug',
-    message: 'セラピストに必要なアイテム',
+    message: '進行中',
     image: 'Spark_Plug_Icon.png',
     status: 'false',
     itemsNeeded: 8,

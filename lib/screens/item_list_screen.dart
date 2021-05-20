@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tarkov_task_manager/models/item_model.dart';
+import 'package:tarkov_task_manager/screens/item_list_comp_screen.dart';
 
 class ItemListScreen extends StatefulWidget {
   @override
@@ -12,11 +13,57 @@ class _ItemListScreenState extends State<ItemListScreen> {
     super.initState();
   }
 
+  //　Itemのアップデートを行う処理
+  void updateItems(Item item, int i) {
+    if (item.status == 'false') {
+      final updatedTask = Item(
+        name: item.name,
+        message: '完了',
+        image: item.image,
+        status: 'true',
+        itemsNeeded: item.itemsNeeded,
+        count: item.count,
+      );
+      //tasksのi番目のタスクを新しいタスクと入れ替える。
+      items[i] = updatedTask;
+    } else if (item.status == 'true') {
+      final updatedTask = Item(
+        name: item.name,
+        message: '進行中',
+        image: item.image,
+        status: 'false',
+        itemsNeeded: item.itemsNeeded,
+        count: item.count,
+      );
+      items[i] = updatedTask;
+    }
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text('アイテムチェックリスト'),
+          centerTitle: true,
+          actions: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: IconButton(
+                icon: Icon(Icons.check_box),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CompletedTasks(
+                        items: items,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
         ),
         body: Stack(children: [
           Column(
@@ -106,11 +153,15 @@ class _ItemListScreenState extends State<ItemListScreen> {
                       ),
 
                       /// 取得ボタンを押したときの動作
-                      onPressed: () {
-                        if (items[i].count > 0) {
-                          setState(() => items[i].count--);
-                        }
-                      },
+                      onPressed: items[i].count <= 0
+                          ? null
+                          : () {
+                              setState(() => items[i].count--);
+                              if (items[i].count < items[i].itemsNeeded &&
+                                  items[i].status == 'true') {
+                                updateItems(items[i], i);
+                              }
+                            },
                       child: Text('減らす'),
                     ),
                   ),
@@ -121,11 +172,15 @@ class _ItemListScreenState extends State<ItemListScreen> {
                         primary: Colors.greenAccent,
                         backgroundColor: Colors.greenAccent.withOpacity(0.2),
                       ),
-                      onPressed: () {
-                        if (items[i].count < items[i].itemsNeeded) {
-                          setState(() => items[i].count++);
-                        }
-                      },
+                      onPressed: items[i].count >= items[i].itemsNeeded
+                          ? null
+                          : () {
+                              setState(() => items[i].count++);
+                              if (items[i].count == items[i].itemsNeeded &&
+                                  items[i].status == 'false') {
+                                updateItems(items[i], i);
+                              }
+                            },
                       child: Text('取得'),
                     ),
                   ),
